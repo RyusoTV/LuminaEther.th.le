@@ -128,12 +128,12 @@ header{animation:dn .6s cubic-bezier(.2,.8,.2,1)}@keyframes dn{from{transform:tr
 
 <script>
 // ==================== ตั้งค่า SUPABASE CONFIG ====================
-const SUPABASE_URL = 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co'; // เปลี่ยนเป็น URL โปรเจกต์ของคุณ
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';                 // เปลี่ยนเป็น Anon Key ของคุณ
+const SUPABASE_URL = 'https://tdygzzlhhoutzxctbscf.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_KijdNxL3RZ-gT5x-pLh2wQ_A05xVdVC';
 
 let supabase = null;
 const supabaseLib = window.supabase || (typeof supabase !== 'undefined' ? supabase : null);
-if (supabaseLib && typeof supabaseLib.createClient === 'function' && SUPABASE_URL !== 'https://YOUR_SUPABASE_PROJECT_ID.supabase.co') {
+if (supabaseLib && typeof supabaseLib.createClient === 'function' && SUPABASE_URL !== 'https://tdygzzlhhoutzxctbscf.supabase.co') {
   supabase = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 // =================================================================
