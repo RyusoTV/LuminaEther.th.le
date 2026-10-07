@@ -4,6 +4,12 @@
 <title>LuminaEther Official</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Noto+Sans+Thai:wght@400;600&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'https://tdygzzlhhoutzxctbscf.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_KijdNxL3RZ-gT5x-pLh2wQ_A05xVdVC';
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script>
 <style>
 :root{--bg:#050816;--fg:#e8f1ff;--mut:#8a9bc4;--card:rgba(14,22,48,.72);--line:rgba(80,200,255,.25);--c1:#22d3ee;--c2:#8b5cf6;--bad:#fb7185;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#eef4ff;--fg:#0b1430;--mut:#51608a;--card:rgba(255,255,255,.82);--line:rgba(30,90,200,.28)}}
