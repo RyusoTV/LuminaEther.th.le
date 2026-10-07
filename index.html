@@ -188,7 +188,7 @@ const ago=t=>{if(!t)return'';const m=(Date.now()-t)/6e4|0;return m<1?'เมื�
 const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e.t);e.t=setTimeout(()=>e.classList.remove('on'),2600)};
 const hash=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('lx|'+s)))].map(x=>x.toString(16).padStart(2,'0')).join('');
 const img2url=(f,m,q)=>new Promise(r=>{const i=new Image;i.onload=()=>{const k=Math.min(1,m/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);r(c.toDataURL('image/jpeg',q))};i.src=URL.createObjectURL(f)});
-async function put(c,id,o){o={...o,id};if(db){try{await db.doc(c+'/'+id).set(o);return true}catch(e){toast('บันทึกไม่สำเร็จ: บัญชีนี้ไม่มีสิทธิ์เขียนข้อมูล');return false}}const i=D[c].findIndex(x=>x.id===id);i<0?D[c].push(o):D[c][i]=o;ls('lx_'+c,D[c]);render();return true}
+async function put(c,id,o){o={...o,id};if(db){try{await db.doc(c+'/'+id).set(o);return true}catch(e){console.error(e);toast('บันทึกไม่สำเร็จ: '+(e.code==='42501'||/row-level/i.test(e.message||'')?'บัญชีนี้ไม่มีสิทธิ์เขียนข้อมูล':(e.message||e.code||'ผิดพลาด')));return false}}const i=D[c].findIndex(x=>x.id===id);i<0?D[c].push(o):D[c][i]=o;ls('lx_'+c,D[c]);render();return true}
 async function del(c,id){if(db){try{await db.doc(c+'/'+id).delete()}catch(e){toast('ลบไม่สำเร็จ')}return}D[c]=D[c].filter(x=>x.id!==id);ls('lx_'+c,D[c]);render()}
 const modal=h=>{const m=$('#modal');if(!h){curStory=null;const o=m.firstChild;if(o&&!o.classList.contains('out')){o.classList.add('out');setTimeout(()=>{if(o.isConnected&&o.classList.contains('out'))m.innerHTML=''},180)}return}m.innerHTML=`<div class=ov data-ov><div class="box card">${h}</div></div>`};
 const fld=(n,l,t='text',v='',x='')=>t==='t'?`<label>${l}<textarea name=${n} rows=3 ${x}>${esc(v)}</textarea></label>`:`<label>${l}<input name=${n} type=${t} value="${esc(v)}" ${x}></label>`;
@@ -241,7 +241,7 @@ const SB=window.supabase.createClient(SBU,SBK);
 let chan=null,poll=null;
 function apply(c,id,o){const a=D[c]||(D[c]=[]),i=a.findIndex(x=>x.id===id);if(o===null){if(i>=0)a.splice(i,1)}else{const v={...o,id};i<0?a.push(v):a[i]=v}sched()}
 const adapter={doc:p=>{const[c,id]=p.split('/');return{
-async set(o){const{error}=await SB.from('docs').upsert({col:c,id,data:o,updated_at:new Date().toISOString()});if(error){console.error(error);throw error}apply(c,id,o)},
+async set(o){const{error}=await SB.from('docs').upsert({col:c,id,data:o,updated_at:new Date().toISOString()},{onConflict:'col,id'});if(error){console.error(error);throw error}apply(c,id,o)},
 async delete(){const{error}=await SB.from('docs').delete().eq('col',c).eq('id',id);if(error){console.error(error);throw error}apply(c,id,null)}}}};
 async function pull(){let from=0,rows=[];for(;;){const{data,error}=await SB.from('docs').select('col,id,data').order('updated_at').range(from,from+999);if(error)throw error;rows=rows.concat(data);if(data.length<1000)break;from+=1000}
 const n={};COLS.forEach(c=>n[c]=[]);rows.forEach(r=>{if(n[r.col])n[r.col].push({...r.data,id:r.id})});COLS.forEach(c=>D[c]=n[c]);sched()}
