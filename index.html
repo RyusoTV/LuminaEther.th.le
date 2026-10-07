@@ -5,11 +5,6 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Noto+Sans+Thai:wght@400;600&display=swap">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = 'https://tdygzzlhhoutzxctbscf.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_KijdNxL3RZ-gT5x-pLh2wQ_A05xVdVC';
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-</script>
 <style>
 :root{--bg:#050816;--fg:#e8f1ff;--mut:#8a9bc4;--card:rgba(14,22,48,.72);--line:rgba(80,200,255,.25);--c1:#22d3ee;--c2:#8b5cf6;--bad:#fb7185;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#eef4ff;--fg:#0b1430;--mut:#51608a;--card:rgba(255,255,255,.82);--line:rgba(30,90,200,.28)}}
@@ -123,7 +118,11 @@ header{animation:dn .6s cubic-bezier(.2,.8,.2,1)}@keyframes dn{from{transform:tr
 .nw{position:relative;display:inline-block}.nt{position:absolute;left:50%;bottom:100%;margin-bottom:8px;width:max-content;max-width:190px;transform:translateX(-50%);background:var(--card);border:1px solid var(--c1);border-radius:14px;padding:3px 12px;font-size:13px;box-shadow:0 0 14px rgba(34,211,238,.3);animation:bob 3s ease-in-out infinite;z-index:2;cursor:pointer}.nt::after{content:"";position:absolute;left:50%;bottom:-6px;width:10px;height:10px;background:var(--card);border:solid var(--c1);border-width:0 1px 1px 0;transform:translateX(-50%) rotate(45deg)}
 @keyframes bob{50%{transform:translateX(-50%) translateY(-4px)}}
 .nb{max-width:64px;margin:0 auto 4px;padding:1px 8px;font-size:11px;border:1px solid var(--c1);border-radius:10px;background:var(--card);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;animation:bob 3s ease-in-out infinite}
-</style></head><body>
+</style><script>
+const SUPABASE_URL = 'https://tdygzzlhhoutzxctbscf.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_KijdNxL3RZ-gT5x-pLh2wQ_A05xVdVC';
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</script></head><body>
 <canvas id="bg"></canvas>
 <div id="boot"><b>LUMINAETHER</b><i></i><small>INITIALIZING...</small></div>
 <header><div class="logo" data-a="go" data-p="home">LUMINAETHER</div><nav></nav><div id="me"></div></header>
@@ -292,4 +291,54 @@ if(e.key==='Escape')closeSV();else if(e.key==='ArrowRight')nextS();else if(e.key
 (function f(){x.clearRect(0,0,w,h);P.forEach((p,i)=>{p.x=(p.x+p.vx+w)%w;p.y=(p.y+p.vy+h)%h;x.fillStyle='#22d3ee';x.fillRect(p.x,p.y,2,2);for(let j=i+1;j<P.length;j++){const q=P[j],d=Math.hypot(p.x-q.x,p.y-q.y);if(d<120){x.strokeStyle=`rgba(34,211,238,${.2*(1-d/120)})`;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke()}}});requestAnimationFrame(f)})()})();
 render(true);purge();setInterval(purge,3e5);
 (async()=>{try{const c=window.claude&&await claude.use('db');if(c){db=c;COLS.forEach(k=>db.collection(k).onSnapshot(s=>{D[k]=s.docs.map(d=>({...d.data(),id:d.id}));if(k==='users')ready=true;sched();k==='stories'&&purge()},()=>{}))}else{ready=true;render()}}catch(e){ready=true;render()}})();setTimeout(()=>{if(!ready){ready=true;render()}},3500);
+// ฟังก์ชันบันทึกข้อมูลขึ้น Supabase
+async function put(c, id, o) {
+  o = { ...o, id };
+  const { error } = await supabase.from(c).upsert(o);
+  if (error) {
+    console.error(error);
+    toast('บันทึกไม่สำเร็จ');
+    return false;
+  }
+  const i = D[c].findIndex(x => x.id === id);
+  i < 0 ? D[c].push(o) : D[c][i] = o;
+  render();
+  return true;
+}
+
+// ฟังก์ชันลบข้อมูลจาก Supabase
+async function del(c, id) {
+  const { error } = await supabase.from(c).delete().eq('id', id);
+  if (error) {
+    toast('ลบไม่สำเร็จ');
+    return;
+  }
+  D[c] = D[c].filter(x => x.id !== id);
+  render();
+}
+
+// โหลดข้อมูลเริ่มต้นและเปิดระบบ Realtime Sync ให้ทุกคนเห็นข้อมูลทันที
+async function initSupabase() {
+  for (const c of COLS) {
+    const { data } = await supabase.from(c).select('*');
+    if (data) D[c] = data;
+
+    // ระบบรับส่งข้อมูลแบบ Realtime
+    supabase.channel('public:' + c)
+      .on('postgres_changes', { event: '*', schema: 'public', table: c }, payload => {
+        if (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') {
+          const idx = D[c].findIndex(x => x.id === payload.new.id);
+          idx < 0 ? D[c].push(payload.new) : D[c][idx] = payload.new;
+        } else if (payload.eventType === 'DELETE') {
+          D[c] = D[c].filter(x => x.id !== payload.old.id);
+        }
+        render();
+      })
+      .subscribe();
+  }
+  ready = true;
+  render();
+}
+
+initSupabase();
 </script></body></html>
