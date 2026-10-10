@@ -162,6 +162,25 @@ header{animation:dn .6s cubic-bezier(.2,.8,.2,1)}@keyframes dn{from{transform:tr
 nav a:hover{transform:translateY(-2px)}.sp{position:fixed;z-index:95;width:6px;height:6px;border-radius:50%;background:#22d3ee;box-shadow:0 0 10px #22d3ee;pointer-events:none;animation:spk .7s forwards}@keyframes spk{to{transform:translateY(24px) scale(0);opacity:0}}
 .ew{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;margin:6px 0;border:1px solid var(--line);background:#000}.ew iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.ew.tt{aspect-ratio:auto;height:600px;max-width:325px}.ep.sp{width:100%;border:0;border-radius:12px;margin:6px 0}
 .svem{position:absolute;left:16px;right:16px;top:86px;z-index:4;border-radius:12px;overflow:hidden;box-shadow:0 0 18px rgba(34,211,238,.4)}.svem .ew{margin:0}
+
+/* ===== CYBER / MOBILE ===== */
+body::before{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 20% 25%,rgba(34,211,238,.18),transparent 70%),radial-gradient(35% 30% at 80% 70%,rgba(139,92,246,.22),transparent 70%),radial-gradient(30% 25% at 60% 10%,rgba(244,114,182,.12),transparent 70%);animation:au 18s ease-in-out infinite alternate}@keyframes au{to{transform:translate(4%,3%) rotate(6deg) scale(1.1)}}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
+header::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:linear-gradient(90deg,transparent,var(--c1),var(--c2),transparent) -100% 0/50% 100% no-repeat;animation:hl 3.2s linear infinite}@keyframes hl{to{background-position:200% 0}}
+.card{--g:linear-gradient(var(--c1),var(--c1));background-image:var(--g),var(--g),var(--g),var(--g),var(--g),var(--g),var(--g),var(--g);background-repeat:no-repeat;background-size:14px 2px,2px 14px,14px 2px,2px 14px,14px 2px,2px 14px,14px 2px,2px 14px;background-position:left top,left top,right top,right top,left bottom,left bottom,right bottom,right bottom}
+.ph h2{text-shadow:2px 0 rgba(244,114,182,.45),-2px 0 rgba(34,211,238,.45);animation:h2 .9s cubic-bezier(.2,.8,.2,1) both,gj 6s 1.2s infinite}@keyframes gj{0%,91%,100%{transform:none}93%{transform:translateX(-3px) skewX(-6deg);text-shadow:-5px 0 #f472b6,5px 0 #22d3ee}96%{transform:translateX(3px)}}
+.rcat{font:700 .95rem Orbitron,'Noto Sans Thai',sans-serif;letter-spacing:.08em;color:var(--c1);margin:18px 0 10px;display:flex;align-items:center;gap:10px}.rcat::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--c1),transparent)}
+.rule{border-left:3px solid var(--c1)}.rno{position:absolute;right:12px;top:8px;font:800 .8rem Orbitron,sans-serif;color:var(--mut)}
+.pen{margin-top:10px;padding:8px 10px;border-radius:10px;background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.5);color:#fecdd3;white-space:pre-wrap;animation:pn 2.4s infinite}.pen b{display:block;color:var(--bad);font-size:.8rem;margin-bottom:2px}@keyframes pn{50%{box-shadow:0 0 14px rgba(251,113,133,.45)}}
+nav:empty{display:none}@keyframes dk{from{transform:translateY(8px) scale(.9)}}
+@media(max-width:760px){
+header{padding:8px 12px}.logo{font-size:.85rem}#me .btn{padding:6px 9px;font-size:12px}
+nav{position:fixed;left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:30;flex:none;gap:2px;padding:6px;border-radius:22px;background:rgba(8,14,36,.85);backdrop-filter:blur(16px);border:1px solid var(--line);box-shadow:0 0 30px rgba(34,211,238,.25),0 10px 30px rgba(0,0,0,.5)}
+nav a{flex:0 0 auto;min-width:62px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;padding:6px 8px;border-radius:16px}
+nav a::before{font-size:20px;line-height:1}nav a[data-p=home]::before{content:"🏠"}nav a[data-p=reels]::before{content:"🎬"}nav a[data-p=team]::before{content:"👥"}nav a[data-p=projects]::before{content:"🚀"}nav a[data-p=partners]::before{content:"🤝"}nav a[data-p=news]::before{content:"📰"}nav a[data-p=shop]::before{content:"🛍️"}nav a[data-p=rules]::before{content:"📜"}nav a[data-p=info]::before{content:"ℹ️"}
+nav a.on{background:linear-gradient(135deg,rgba(34,211,238,.25),rgba(139,92,246,.25));box-shadow:inset 0 0 18px rgba(34,211,238,.45);animation:dk .4s}nav a.on::after{display:none}
+main{padding:10px 10px 118px}.post{margin-left:-10px;margin-right:-10px;border-radius:0;border-left:0;border-right:0}.grid{grid-template-columns:1fr}
+.svb{width:100vw;height:100dvh;border-radius:0}#toast{bottom:104px!important}.box{width:calc(100vw - 24px)!important;max-height:84dvh;overflow:auto}.ew.tt{max-width:100%}}
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script></head><body>
 <canvas id="bg"></canvas>
 <div id="boot"><b>LUMINAETHER</b><i></i><small>INITIALIZING...</small></div>
@@ -171,12 +190,13 @@ nav a:hover{transform:translateY(-2px)}.sp{position:fixed;z-index:95;width:6px;h
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const LV=['สมาชิก','ทีมงาน','คณะบริหาร','รองCEO','CEO'],CEOM='luminaethercompany@gmail.com';
-const COLS=['users','posts','stories','reels','team','projects','partners','news','products','lore','chars'];
-const NAV=[['home','หน้าหลัก'],['reels','Reels'],['team','ทีมงาน'],['projects','โปรเจคในค่าย'],['partners','พันธมิตร'],['news','ข่าวสาร'],['shop','สินค้า'],['info','ข้อมูล']];
+const COLS=['users','posts','stories','reels','team','projects','partners','news','products','lore','chars','rules'];
+const NAV=[['home','หน้าหลัก'],['reels','Reels'],['team','ทีมงาน'],['projects','โปรเจคในค่าย'],['partners','พันธมิตร'],['news','ข่าวสาร'],['shop','สินค้า'],['rules','กฎระเบียบ'],['info','ข้อมูล']];
 const CFG={team:{c:'team',t:'รายชื่อทีมงาน',lv:2,f:[['name','ชื่อ'],['role','ตำแหน่ง'],['xbox','Xbox']]},
 projects:{c:'projects',t:'โปรเจคในค่าย',lv:4,f:[['title','ชื่อโปรเจค'],['desc','รายละเอียด','t']]},
 partners:{c:'partners',t:'พันธมิตร',lv:2,f:[['name','ชื่อพันธมิตร'],['desc','รายละเอียด','t'],['url','ลิงก์เว็บ (ถ้ามี)']]},
 news:{c:'news',t:'ข่าวสาร',lv:1,f:[['title','หัวข้อข่าว'],['desc','เนื้อหา','t']]},
+rules:{c:'rules',t:'กฎระเบียบ',lv:4,f:[['cat','หมวดหมู่ (ประเภทของกฎ)'],['title','หัวข้อ'],['desc','คำอธิบาย','t'],['pen','โทษ (โทษที่ผู้กระทำผิดได้รับ)','t']]},
 shop:{c:'products',t:'สินค้า',lv:1,img:1,f:[['name','ชื่อสินค้า'],['price','ราคา'],['desc','รายละเอียด','t']]}};
 const D={};let db=null,page='home',sess=null,ptab='posts',pu=null,curStory=null,refD=null,rq=0;
 const ls=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}};
@@ -231,6 +251,8 @@ reels(){const me=U(),a=[...D.reels].sort((x,y)=>y.ts-x.ts);
 return `<div class=ph><h2>Reels</h2>${me?'<button class=btn data-a=rnew>＋ สร้าง Reels</button>':'<a data-a=login>เข้าสู่ระบบเพื่อโพสต์</a>'}</div><div class=rl>${a.map(r=>{const u=byId(r.by),d=`data-c=reels data-id=${r.id}`;return `<div class=rc><video src="${esc(r.m.s)}" loop playsinline preload=metadata data-a=rtap></video><div class=ri><div class=hd data-a=prof data-u="${r.by}">${av(u,34)}<b>${nm(u)}</b></div><div>${rich(r.text||'')}</div></div><div class=rs><button data-a=like ${d} class="${r.l?.includes(sess)?'on':''}${LK===r.id?' pop':''}">❤<small>${r.l?.length||0}</small></button><button data-a=rcm data-id=${r.id}>💬<small>${r.c?.length||0}</small></button><button data-a=share ${d}>↗</button><button data-a=rmute>${RM?'🔇':'🔊'}</button>${sess===r.by||lv()===4?`<button data-a=del ${d}>🗑</button>`:''}</div></div>`}).join('')||empty}</div>`},
 lore(){const p=D.projects.find(x=>x.id===LP);if(!p)return empty;const a=D.lore.filter(x=>x.proj===LP&&x.cat===LC).sort((x,y)=>x.ts-y.ts),can=lv()>=2;
 return `<div class=ph><h2>📖 ${esc(p.title)}</h2><button class="btn g sm" data-a=go data-p=projects>← กลับ</button></div><div class=tabs>${LCAT.map(([k,t])=>`<a data-a=lc data-k=${k} class="${LC===k?'on':''}">${t}</a>`).join('')}</div>${can?`<div class=row style="margin:0 0 12px"><button class=btn data-a=ladd>＋ เพิ่มใน${LCAT.find(x=>x[0]===LC)[1]}</button></div>`:''}${a.map((o,i)=>`<article class="card post loreit" style="--i:${i}"><h3>${esc(o.title)}</h3><p>${esc(o.text)}</p>${can?`<div class=act><button data-a=del data-c=lore data-id=${o.id}>ลบ</button></div>`:''}</article>`).join('')||empty}`},
+rules(){const a=[...D.rules].sort((x,y)=>x.ts-y.ts),cs=[...new Set(a.map(o=>o.cat||'ทั่วไป'))],can=lv()>=4;
+return `<div class=ph><h2>📜 กฎระเบียบ</h2>${can?`<button class=btn data-a=add data-k=rules>＋ เพิ่มกฎ</button>`:''}</div>${cs.map(c=>`<h3 class=rcat>${esc(c)}</h3><div class=grid>${a.filter(o=>(o.cat||'ทั่วไป')===c).map((o,i)=>`<div class="card rule" style="--i:${i}"><span class=rno>#${i+1}</span><h3>${esc(o.title)}</h3><p>${esc(o.desc)}</p>${o.pen?`<div class=pen><b>⚠ โทษ</b>${esc(o.pen)}</div>`:''}${can?`<div class=row><button class="btn g sm" data-a=del data-c=rules data-id=${o.id}>ลบ</button></div>`:''}</div>`).join('')}</div>`).join('')||empty}`},
 team:()=>list('team'),projects:()=>list('projects'),partners:()=>list('partners'),news:()=>list('news'),shop:()=>list('shop'),
 info:()=>`<div class=ph><h2>ข้อมูล</h2></div><div class=grid><div class=card><h3>เกี่ยวกับ LuminaEther</h3><p>ค่ายและชุมชนของ LuminaEther Official รวมทีมงาน โปรเจค พันธมิตร ข่าวสาร และสินค้าไว้ในที่เดียว</p></div><div class=card><h3>ระดับสถานะ</h3><p>${LV.join(' → ')}</p></div><div class=card><h3>เครื่องหมายยืนยันตัวตน ✔</h3><p>มีช่องสตรีมหรือช่องทางติดตามที่มีผู้ติดตามตั้งแต่ 200 คน ส่งข้อมูลได้ที่ "แก้ไขโปรไฟล์"</p></div><div class=card><h3>โพสต์และสตอรี่</h3><p>แนบเพลง รูป วิดีโอ แท็กเพื่อนด้วย @Xbox และเพื่อนที่ถูกแท็กสามารถนำไปรีโพสต์หรือลงสตอรี่ได้</p></div></div>`,
 prof(){const u=byId(pu||sess);if(!u)return '<div class=card>ไม่พบโปรไฟล์ — <a data-a=login>เข้าสู่ระบบ</a></div>';const own=u.id===sess,xb=u.xbox.toLowerCase(),ad=own&&CVA&&u.cv,cp=ad?CVA:{x:50,y:50,z:1,h:150,...u.cp};
